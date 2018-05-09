@@ -13,15 +13,25 @@ void Robot::TeleopPeriodic()
 	timeNew = seconds.Get();
 	double time = timeNew - timeOld;
 	float jerk = (oldAccel - newAccel) / time;
-	int maxJerkAllowed = 10;
+	int maxJerkAllowed = 60;
+	SmartDashboard::PutNumber("jerk", jerk);
+	bool shouldRumble;
 	if(jerk < -maxJerkAllowed || jerk > maxJerkAllowed){
+		timeCollision = timeNew;
+	}
+//	if(DriveController.GetYButton()){
+//			timeCollision = timeNew;
+//	}
+	if(timeNew - timeCollision < 1){
 		DriveController.SetRumble(GenericHID::RumbleType::kLeftRumble, 1);
 		DriveController.SetRumble(GenericHID::RumbleType::kRightRumble, 1);
-
+		shouldRumble = true;
 	}else{
 		DriveController.SetRumble(GenericHID::RumbleType::kLeftRumble, 0);
 		DriveController.SetRumble(GenericHID::RumbleType::kRightRumble, 0);
+		shouldRumble = false;
 	}
+	SmartDashboard::PutBoolean("shouldRumble", shouldRumble);
 
 
 	double speedVal = 0;

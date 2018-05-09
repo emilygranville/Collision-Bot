@@ -19,7 +19,8 @@ Robot::Robot() :
 	newAccel(ahrs.GetWorldLinearAccelX()),
 	oldAccel(0),
 	timeNew(0),
-	timeOld(seconds.Get())
+	timeOld(seconds.Get()),
+	timeCollision(-10)
 {
 	//int num = int(4);
 }

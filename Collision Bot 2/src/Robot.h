@@ -29,6 +29,7 @@ private:
 	float oldAccel;
 	double timeNew;
 	double timeOld;
+	double timeCollision;
 
 public:
 	// Here, we're declaring the following functions:
